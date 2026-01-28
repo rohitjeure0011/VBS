@@ -2,12 +2,8 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title><!DOCTYPE html>
-        <html lang="en">
-        <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <title>Admin Panel - Virtual Banking System</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Panel - Secure Banking System</title>
     <style>
         * {
             margin: 0;
@@ -17,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -27,28 +23,39 @@
             max-width: 1200px;
             margin: 0 auto;
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+            padding: 25px 30px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .header-left h1 {
             font-size: 28px;
             margin-bottom: 5px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .header-left h1:before {
+            content: "🏦";
+            font-size: 32px;
         }
 
         .header-left p {
             font-size: 14px;
             opacity: 0.9;
+            color: #d1d8ff;
         }
 
         .header-buttons {
@@ -58,19 +65,22 @@
 
         .btn-header {
             padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            border: 2px solid white;
+            border: 1px solid rgba(255, 255, 255, 0.2);
             border-radius: 8px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
             text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-header:hover {
-            background: white;
-            color: #667eea;
+            background: rgba(255, 255, 255, 0.25);
+            transform: translateY(-2px);
         }
 
         .content {
@@ -87,8 +97,15 @@
         }
 
         .admin-header h2 {
-            color: #333;
+            color: #0c2461;
             font-size: 24px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .admin-header h2:before {
+            content: "📊";
         }
 
         .stats-grid {
@@ -99,29 +116,35 @@
         }
 
         .stat-card {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3799 0%, #4a69bd 100%);
             color: white;
             padding: 25px;
-            border-radius: 12px;
+            border-radius: 15px;
             text-align: center;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 15px rgba(12, 36, 97, 0.2);
             transition: all 0.3s;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .stat-card:hover {
             transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 10px 25px rgba(12, 36, 97, 0.3);
         }
 
         .stat-card p {
-            font-size: 13px;
+            font-size: 14px;
             opacity: 0.9;
             margin-bottom: 10px;
+            color: #d1d8ff;
         }
 
         .stat-value {
             font-size: 32px;
             font-weight: bold;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
         }
 
         .search-section {
@@ -148,56 +171,62 @@
             flex: 1;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             cursor: pointer;
             background: white;
             transition: border-color 0.3s;
+            color: #333;
         }
 
         .filter-box select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1e3799;
         }
 
         .search-box input {
             flex: 1;
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             transition: border-color 0.3s;
+            color: #333;
         }
 
         .search-box input:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #1e3799;
         }
 
         .search-btn {
             padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3799 0%, #4a69bd 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .search-btn:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.4);
         }
 
         .users-section {
             background: #f8f9fa;
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 15px;
+            border: 1px solid #e8ecf5;
         }
 
         .users-section h3 {
-            color: #333;
+            color: #0c2461;
             margin-bottom: 20px;
             font-size: 18px;
             display: flex;
@@ -209,11 +238,12 @@
 
         .user-count {
             background: white;
-            padding: 5px 15px;
+            padding: 8px 20px;
             border-radius: 20px;
             font-size: 14px;
-            color: #667eea;
+            color: #1e3799;
             font-weight: 600;
+            border: 1px solid #e8ecf5;
         }
 
         .users-table {
@@ -222,14 +252,14 @@
         }
 
         .users-table thead {
-            background: white;
-            border-bottom: 2px solid #ddd;
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
+            color: white;
         }
 
         .users-table th {
             padding: 15px;
             text-align: left;
-            color: #333;
+            color: white;
             font-weight: 600;
             font-size: 14px;
         }
@@ -241,8 +271,8 @@
         }
 
         .users-table tbody tr:hover {
-            background: #f5f5f5;
-            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            background: #f0f4ff;
+            box-shadow: 0 2px 8px rgba(12, 36, 97, 0.1);
         }
 
         .users-table td {
@@ -253,11 +283,12 @@
 
         .user-id {
             font-weight: 600;
-            color: #667eea;
+            color: #1e3799;
         }
 
         .user-name {
             font-weight: 500;
+            color: #0c2461;
         }
 
         .user-email {
@@ -267,25 +298,34 @@
 
         .user-balance {
             font-weight: 600;
-            color: #43e97b;
+            color: #2ecc71;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+
+        .user-balance:before {
+            content: "💰";
         }
 
         .user-role {
             display: inline-block;
-            padding: 4px 10px;
+            padding: 6px 12px;
             border-radius: 20px;
             font-size: 12px;
             font-weight: 600;
         }
 
         .user-role.customer {
-            background: #d4e7ff;
-            color: #4facfe;
+            background: #e8f5e9;
+            color: #27ae60;
+            border: 1px solid #c8e6c9;
         }
 
         .user-role.admin {
-            background: #ffe0de;
-            color: #f5576c;
+            background: #e3f2fd;
+            color: #1e3799;
+            border: 1px solid #bbdefb;
         }
 
         .action-buttons {
@@ -294,41 +334,44 @@
         }
 
         .btn-action {
-            padding: 6px 12px;
+            padding: 8px 15px;
             border: none;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-size: 12px;
             font-weight: 600;
             transition: all 0.3s;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .btn-view {
-            background: #d4e7ff;
-            color: #4facfe;
+            background: #e8f5e9;
+            color: #27ae60;
         }
 
         .btn-view:hover {
-            background: #4facfe;
+            background: #27ae60;
             color: white;
         }
 
         .btn-delete {
-            background: #ffe0de;
-            color: #f5576c;
+            background: #ffebee;
+            color: #e74c3c;
         }
 
         .btn-delete:hover {
-            background: #f5576c;
+            background: #e74c3c;
             color: white;
         }
 
         .btn-add-user {
             padding: 12px 25px;
-            background: linear-gradient(135deg, #43e97b 0%, #38f9d7 100%);
+            background: linear-gradient(135deg, #27ae60 0%, #2ecc71 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             font-size: 14px;
@@ -340,7 +383,7 @@
 
         .btn-add-user:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(67, 233, 123, 0.4);
+            box-shadow: 0 5px 15px rgba(39, 174, 96, 0.4);
         }
 
         .empty-state {
@@ -356,26 +399,28 @@
 
         .empty-state-text {
             font-size: 16px;
+            color: #666;
         }
 
         .message {
-            padding: 12px;
-            border-radius: 8px;
+            padding: 15px;
+            border-radius: 10px;
             margin-bottom: 20px;
             font-size: 14px;
             display: none;
+            border-left: 4px solid transparent;
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #e8f5e9;
+            color: #27ae60;
+            border-left-color: #27ae60;
         }
 
         .message.error {
-            background: #f8d7da;
-            color: #721c24;
-            border: 1px solid #f5c6cb;
+            background: #ffebee;
+            color: #e74c3c;
+            border-left-color: #e74c3c;
         }
 
         .message.show {
@@ -391,24 +436,25 @@
         }
 
         .pagination button {
-            padding: 8px 12px;
+            padding: 8px 15px;
             border: 1px solid #ddd;
             background: white;
-            border-radius: 6px;
+            border-radius: 8px;
             cursor: pointer;
             font-weight: 500;
             transition: all 0.3s;
+            color: #333;
         }
 
         .pagination button.active {
-            background: #667eea;
+            background: linear-gradient(135deg, #1e3799 0%, #4a69bd 100%);
             color: white;
-            border-color: #667eea;
+            border-color: #1e3799;
         }
 
-        .pagination button:hover {
-            border-color: #667eea;
-            color: #667eea;
+        .pagination button:hover:not(.active) {
+            border-color: #1e3799;
+            color: #1e3799;
         }
 
         .pagination button:disabled {
@@ -425,9 +471,10 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.5);
+            background-color: rgba(12, 36, 97, 0.8);
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .modal.show {
@@ -437,17 +484,21 @@
         .modal-content {
             background: white;
             padding: 30px;
-            border-radius: 12px;
+            border-radius: 15px;
             max-width: 500px;
             width: 90%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .modal-header {
             font-size: 20px;
             font-weight: bold;
-            color: #333;
+            color: #0c2461;
             margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
         }
 
         .user-details {
@@ -499,6 +550,8 @@
 
         .responsive-table-wrapper {
             overflow-x: auto;
+            border-radius: 10px;
+            border: 1px solid #e8ecf5;
         }
 
         /* Add User Form Styles */
@@ -510,7 +563,7 @@
 
         .form-group label {
             margin-bottom: 8px;
-            color: #333;
+            color: #0c2461;
             font-weight: 600;
             font-size: 14px;
         }
@@ -519,7 +572,7 @@
         .form-group select {
             padding: 12px 15px;
             border: 2px solid #e0e0e0;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 14px;
             transition: border-color 0.3s;
             font-family: inherit;
@@ -528,8 +581,8 @@
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
-            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+            border-color: #1e3799;
+            box-shadow: 0 0 0 3px rgba(30, 55, 153, 0.1);
         }
 
         .form-group input::placeholder {
@@ -545,10 +598,10 @@
 
         .btn-submit {
             padding: 12px 25px;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3799 0%, #4a69bd 100%);
             color: white;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
@@ -557,7 +610,7 @@
 
         .btn-submit:hover {
             transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            box-shadow: 0 5px 15px rgba(30, 55, 153, 0.4);
         }
 
         .btn-cancel {
@@ -565,7 +618,7 @@
             background: #f0f0f0;
             color: #333;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
@@ -584,9 +637,10 @@
             top: 0;
             width: 100%;
             height: 100%;
-            background-color: rgba(0, 0, 0, 0.6);
+            background-color: rgba(12, 36, 97, 0.9);
             align-items: center;
             justify-content: center;
+            backdrop-filter: blur(5px);
         }
 
         .confirm-dialog.show {
@@ -596,11 +650,12 @@
         .confirm-content {
             background: white;
             padding: 35px;
-            border-radius: 12px;
+            border-radius: 15px;
             max-width: 400px;
             width: 90%;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
             text-align: center;
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .confirm-icon {
@@ -611,7 +666,7 @@
         .confirm-title {
             font-size: 22px;
             font-weight: bold;
-            color: #333;
+            color: #0c2461;
             margin-bottom: 10px;
         }
 
@@ -630,7 +685,7 @@
         .btn-confirm {
             padding: 12px 25px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             cursor: pointer;
             font-weight: 600;
             transition: all 0.3s;
@@ -638,12 +693,12 @@
         }
 
         .btn-confirm-yes {
-            background: #f5576c;
+            background: #e74c3c;
             color: white;
         }
 
         .btn-confirm-yes:hover {
-            background: #e63946;
+            background: #c0392b;
             transform: translateY(-2px);
         }
 
@@ -691,18 +746,42 @@
                 gap: 5px;
             }
         }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb {
+            background: #1e3799;
+            border-radius: 4px;
+        }
+
+        ::-webkit-scrollbar-thumb:hover {
+            background: #0c2461;
+        }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
         <div class="header-left">
-            <h1>VBS Admin</h1>
-            <p>Virtual Banking System - Administration Panel</p>
+            <h1>Secure Bank Admin</h1>
+            <p>Secure Banking System - Administration Panel</p>
         </div>
         <div class="header-buttons">
-            <button class="btn-header" onclick="goToHistory()">History</button>
-            <button class="btn-header" onclick="logout()">Logout</button>
+            <button class="btn-header" onclick="goToHistory()">
+                📜 History
+            </button>
+            <button class="btn-header" onclick="logout()">
+                🚪 Logout
+            </button>
         </div>
     </div>
 
@@ -710,53 +789,55 @@
         <div id="adminMessage" class="message"></div>
 
         <div class="admin-header">
-            <h2>Admin Dashboard</h2>
+            <h2>Bank Dashboard</h2>
             <button class="btn-add-user" onclick="openAddUserModal()">
-                ➕ Add New User
+                👤➕ Add New Customer
             </button>
         </div>
 
         <div class="stats-grid">
             <div class="stat-card">
-                <p>Total Users</p>
-                <div class="stat-value" id="totalUsers">0</div>
+                <p>Total Customers</p>
+                <div class="stat-value">👥 <span id="totalUsers">0</span></div>
             </div>
             <div class="stat-card">
                 <p>Total Balance</p>
-                <div class="stat-value">₹<span id="totalBalance">0</span></div>
+                <div class="stat-value">💰 ₹<span id="totalBalance">0</span></div>
             </div>
             <div class="stat-card">
                 <p>Average Balance</p>
-                <div class="stat-value">₹<span id="avgBalance">0</span></div>
+                <div class="stat-value">📊 ₹<span id="avgBalance">0</span></div>
             </div>
             <div class="stat-card">
-                <p>Active Users</p>
-                <div class="stat-value" id="activeUsers">0</div>
+                <p>Active Accounts</p>
+                <div class="stat-value">✅ <span id="activeUsers">0</span></div>
             </div>
         </div>
 
         <div class="search-section">
             <div class="search-box">
-                <input type="text" id="searchInput" placeholder="Search by username...">
-                <button class="search-btn" onclick="searchUsers()">🔍 Search</button>
+                <input type="text" id="searchInput" placeholder="Search by customer name...">
+                <button class="search-btn" onclick="searchUsers()">
+                    🔍 Search
+                </button>
             </div>
             <div class="filter-box">
                 <select id="sortBy" onchange="applySort()">
-                    <option value="id">Sort by ID</option>
-                    <option value="name">Sort by Name</option>
-                    <option value="username">Sort by Username</option>
-                    <option value="balance">Sort by Balance</option>
+                    <option value="id">📋 Sort by ID</option>
+                    <option value="name">👤 Sort by Name</option>
+                    <option value="username">👥 Sort by Username</option>
+                    <option value="balance">💰 Sort by Balance</option>
                 </select>
                 <select id="sortOrder" onchange="applySort()">
-                    <option value="asc">Ascending ↑</option>
-                    <option value="desc">Descending ↓</option>
+                    <option value="asc">⬆️ Ascending</option>
+                    <option value="desc">⬇️ Descending</option>
                 </select>
             </div>
         </div>
 
         <div class="users-section">
             <h3>
-                All Users
+                Customer Accounts
                 <span class="user-count">Total: <span id="displayCount">0</span></span>
             </h3>
             <div class="responsive-table-wrapper">
@@ -775,8 +856,8 @@
                     <tbody id="usersTableBody">
                     <tr>
                         <td colspan="7" class="empty-state">
-                            <div class="empty-state-icon">⏳</div>
-                            <div class="empty-state-text">Loading users...</div>
+                            <div class="empty-state-icon">🏦</div>
+                            <div class="empty-state-text">Loading customer data...</div>
                         </td>
                     </tr>
                     </tbody>
@@ -790,12 +871,16 @@
 <!-- View User Modal -->
 <div id="viewUserModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">User Details</div>
+        <div class="modal-header">
+            👤 Customer Details
+        </div>
         <div class="user-details" id="userDetailsContent">
             <!-- User details will be populated here -->
         </div>
         <div class="modal-buttons">
-            <button class="btn-modal btn-close-modal" onclick="closeViewUserModal()">Close</button>
+            <button class="btn-modal btn-close-modal" onclick="closeViewUserModal()">
+                ✖️ Close
+            </button>
         </div>
     </div>
 </div>
@@ -803,7 +888,9 @@
 <!-- Add User Modal -->
 <div id="addUserModal" class="modal">
     <div class="modal-content">
-        <div class="modal-header">Add New User</div>
+        <div class="modal-header">
+            👤➕ Add New Customer
+        </div>
         <form id="addUserForm" onsubmit="handleAddUser(event)">
             <div class="form-group">
                 <label for="addName">Full Name *</label>
@@ -828,14 +915,18 @@
             <div class="form-group">
                 <label for="addRole">Role *</label>
                 <select id="addRole" name="role" required>
-                    <option value="">Select Role</option>
-                    <option value="customer">Customer</option>
-                    <option value="admin">Admin</option>
+                    <option value="">👥 Select Role</option>
+                    <option value="customer">👤 Customer</option>
+                    <option value="admin">🛡️ Admin</option>
                 </select>
             </div>
             <div class="modal-buttons-full">
-                <button type="button" class="btn-cancel" onclick="closeAddUserModal()">Cancel</button>
-                <button type="submit" class="btn-submit">Add User</button>
+                <button type="button" class="btn-cancel" onclick="closeAddUserModal()">
+                    ✖️ Cancel
+                </button>
+                <button type="submit" class="btn-submit">
+                    ✅ Add Customer
+                </button>
             </div>
         </form>
     </div>
@@ -845,13 +936,17 @@
 <div id="deleteConfirmDialog" class="confirm-dialog">
     <div class="confirm-content">
         <div class="confirm-icon">⚠️</div>
-        <div class="confirm-title">Delete User?</div>
+        <div class="confirm-title">Delete Customer?</div>
         <div class="confirm-text" id="deleteConfirmText">
-            Are you sure you want to delete this user? This action cannot be undone.
+            Are you sure you want to delete this customer account? This action cannot be undone.
         </div>
         <div class="confirm-buttons">
-            <button class="btn-confirm btn-confirm-no" onclick="closeDeleteConfirm()">Cancel</button>
-            <button class="btn-confirm btn-confirm-yes" onclick="deleteUser()">Delete</button>
+            <button class="btn-confirm btn-confirm-no" onclick="closeDeleteConfirm()">
+                ✖️ Cancel
+            </button>
+            <button class="btn-confirm btn-confirm-yes" onclick="deleteUser()">
+                🗑️ Delete
+            </button>
         </div>
     </div>
 </div>
@@ -868,50 +963,45 @@
 
     // Get user ID and role from URL parameter; restrict access to admin only
     function getUserIdFromURL() {
-    const params = new URLSearchParams(window.location.search);
+        const params = new URLSearchParams(window.location.search);
+        const urlUserId = params.get('id');
+        const urlRole = params.get('role');
+        const storedUserId = localStorage.getItem("userId");
+        const storedRole = localStorage.getItem("role");
+        userId = storedUserId || urlUserId;
+        const role = (storedRole || urlRole || '').toLowerCase();
 
-    const urlUserId = params.get('id');
-    const urlRole = params.get('role');
+        if (!userId) {
+            window.location.href = 'login.html';
+            return;
+        }
 
-    const storedUserId = localStorage.getItem("userId");
-    const storedRole = localStorage.getItem("role");
-
-    userId = storedUserId || urlUserId;
-
-    const role = (storedRole || urlRole || '').toLowerCase();
-
-    if (!userId) {
-        window.location.href = 'login.html';
-        return;
+        if (role !== 'admin') {
+            alert("Unauthorized access");
+            window.location.href = 'login.html';
+        }
     }
-
-    if (role !== 'admin') {
-        alert("Unauthorized access");
-        window.location.href = 'login.html';
-    }
-}
-
 
     // Load all users with sorting
     async function loadAllUsers(sortBy = 'id', order = 'asc') {
         try {
             const response = await fetch(`${API_URL}/users?sortBy=${sortBy}&order=${order}`);
-            if (!response.ok) throw new Error('Failed to load users');
-            
+            if (!response.ok) throw new Error('Failed to load customers');
+
             allUsers = await response.json();
             filteredUsers = [...allUsers];
             currentSortBy = sortBy;
             currentSortOrder = order;
-            
+
             // Update dropdown values
             document.getElementById('sortBy').value = sortBy;
             document.getElementById('sortOrder').value = order;
-            
+
             updateStatistics();
             displayUsers(filteredUsers);
         } catch (error) {
-            console.error('Error loading users:', error);
-            showMessage('adminMessage', 'Failed to load users. Make sure backend is running.', 'error');
+            console.error('Error loading customers:', error);
+            showMessage('adminMessage', 'Failed to load customer data. Make sure backend is running.', 'error');
             displayErrorState();
         }
     }
@@ -956,8 +1046,8 @@
             currentPage = 1;
             displayUsers(filteredUsers);
         } catch (error) {
-            console.error('Error searching users:', error);
-            showMessage('adminMessage', 'Failed to search users. Make sure backend is running.', 'error');
+            console.error('Error searching customers:', error);
+            showMessage('adminMessage', 'Failed to search customers. Make sure backend is running.', 'error');
             filteredUsers = [];
             displayUsers(filteredUsers);
         }
@@ -974,7 +1064,7 @@
                 <tr>
                     <td colspan="7" class="empty-state">
                         <div class="empty-state-icon">📭</div>
-                        <div class="empty-state-text">No users found</div>
+                        <div class="empty-state-text">No customers found</div>
                     </td>
                 </tr>
             `;
@@ -1000,14 +1090,18 @@
                 <td><span class="user-email">${user.email}</span></td>
                 <td>
                     <span class="user-role ${user.role.toLowerCase()}">
-                        ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        ${user.role === 'admin' ? '🛡️ ' : '👤 '}${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                     </span>
                 </td>
                 <td><span class="user-balance">₹${user.balance.toFixed(2)}</span></td>
                 <td>
                     <div class="action-buttons">
-                        <button class="btn-action btn-view" onclick="viewUser(${user.id})">👁️ View</button>
-                        <button class="btn-action btn-delete" onclick="confirmDeleteUser(${user.id}, '${user.name}')">🗑️ Delete</button>
+                        <button class="btn-action btn-view" onclick="viewUser(${user.id})">
+                            👁️ View
+                        </button>
+                        <button class="btn-action btn-delete" onclick="confirmDeleteUser(${user.id}, '${user.name}')">
+                            🗑️ Delete
+                        </button>
                     </div>
                 </td>
             </tr>
@@ -1016,9 +1110,9 @@
         // Display pagination
         if (totalPages > 1) {
             let paginationHTML = '';
-            
+
             if (currentPage > 1) {
-                paginationHTML += `<button onclick="goToPage(${currentPage - 1})">← Previous</button>`;
+                paginationHTML += `<button onclick="goToPage(${currentPage - 1})">⬅️ Previous</button>`;
             }
 
             for (let i = 1; i <= totalPages; i++) {
@@ -1032,7 +1126,7 @@
             }
 
             if (currentPage < totalPages) {
-                paginationHTML += `<button onclick="goToPage(${currentPage + 1})">Next →</button>`;
+                paginationHTML += `<button onclick="goToPage(${currentPage + 1})">Next ➡️</button>`;
             }
 
             paginationContainer.innerHTML = paginationHTML;
@@ -1043,7 +1137,6 @@
         currentPage = page;
         displayUsers(filteredUsers);
     }
-
 
     function viewUser(userId) {
         const user = allUsers.find(u => u.id === userId);
@@ -1071,24 +1164,22 @@
                 <span class="detail-label">Role</span>
                 <span class="detail-value">
                     <span class="user-role ${user.role.toLowerCase()}">
-                        ${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
+                        ${user.role === 'admin' ? '🛡️ ' : '👤 '}${user.role.charAt(0).toUpperCase() + user.role.slice(1)}
                     </span>
                 </span>
             </div>
             <div class="detail-row">
                 <span class="detail-label">Current Balance</span>
-                <span class="detail-value">₹${user.balance.toFixed(2)}</span>
+                <span class="detail-value">💰 ₹${user.balance.toFixed(2)}</span>
             </div>
         `;
 
         document.getElementById('viewUserModal').classList.add('show');
     }
 
-
     function closeViewUserModal() {
         document.getElementById('viewUserModal').classList.remove('show');
     }
-
 
     function displayErrorState() {
         const tableBody = document.getElementById('usersTableBody');
@@ -1096,12 +1187,11 @@
             <tr>
                 <td colspan="7" class="empty-state">
                     <div class="empty-state-icon">❌</div>
-                    <div class="empty-state-text">Failed to load users</div>
+                    <div class="empty-state-text">Failed to load customer data</div>
                 </td>
             </tr>
         `;
     }
-
 
     function showMessage(elementId, message, type) {
         const messageEl = document.getElementById(elementId);
@@ -1112,8 +1202,9 @@
         }, 3000);
     }
 
-  
     function logout() {
+        localStorage.removeItem("userId");
+        localStorage.removeItem("role");
         window.location.href = 'home.html';
     }
 
@@ -1128,7 +1219,6 @@
         document.getElementById('addUserModal').classList.add('show');
         document.getElementById('addUserForm').reset();
     }
-
 
     function closeAddUserModal() {
         document.getElementById('addUserModal').classList.remove('show');
@@ -1147,7 +1237,6 @@
             balance: parseFloat(document.getElementById('addBalance').value),
             role: document.getElementById('addRole').value
         };
-
 
         if (!formData.name || !formData.username || !formData.email || !formData.password || isNaN(formData.balance) || !formData.role) {
             showMessage('adminMessage', 'Please fill all required fields', 'error');
@@ -1176,35 +1265,32 @@
 
             if (!response.ok) {
                 const errorData = await response.text();
-                throw new Error(errorData || 'Failed to add user');
+                throw new Error(errorData || 'Failed to add customer');
             }
 
-            showMessage('adminMessage', 'User added successfully!', 'success');
+            showMessage('adminMessage', 'Customer added successfully!', 'success');
             closeAddUserModal();
             loadAllUsers(currentSortBy, currentSortOrder);
         } catch (error) {
-            console.error('Error adding user:', error);
+            console.error('Error adding customer:', error);
             showMessage('adminMessage', `Error: ${error.message}`, 'error');
         }
     }
-
 
     let userToDeleteId = null;
 
     function confirmDeleteUser(id, name) {
         userToDeleteId = id;
-        document.getElementById('deleteConfirmText').textContent = 
-            `Are you sure you want to delete "${name}"? This action cannot be undone.`;
+        document.getElementById('deleteConfirmText').textContent =
+            `Are you sure you want to delete customer "${name}"? This action cannot be undone.`;
         document.getElementById('deleteConfirmDialog').classList.add('show');
     }
-
 
     function closeDeleteConfirm() {
         document.getElementById('deleteConfirmDialog').classList.remove('show');
         userToDeleteId = null;
     }
 
-   
     async function deleteUser() {
         if (!userToDeleteId) return;
 
@@ -1216,7 +1302,7 @@
             const message = await response.text();
 
             if (!response.ok) {
-                throw new Error(message || 'Failed to delete user');
+                throw new Error(message || 'Failed to delete customer');
             }
 
             // Check if the response message indicates failure (even with 200 status)
@@ -1226,17 +1312,17 @@
                 return;
             }
 
-            showMessage('adminMessage', message || 'User deleted successfully!', 'success');
+            showMessage('adminMessage', message || 'Customer deleted successfully!', 'success');
             closeDeleteConfirm();
             loadAllUsers(currentSortBy, currentSortOrder);
         } catch (error) {
-            console.error('Error deleting user:', error);
+            console.error('Error deleting customer:', error);
             showMessage('adminMessage', `Error: ${error.message}`, 'error');
             closeDeleteConfirm();
         }
     }
 
-
+    // Event listeners
     window.addEventListener('DOMContentLoaded', () => {
         getUserIdFromURL();
         loadAllUsers();
@@ -1246,7 +1332,7 @@
         const viewModal = document.getElementById('viewUserModal');
         const addModal = document.getElementById('addUserModal');
         const deleteDialog = document.getElementById('deleteConfirmDialog');
-        
+
         if (e.target === viewModal) {
             viewModal.classList.remove('show');
         }
@@ -1257,7 +1343,6 @@
             deleteDialog.classList.remove('show');
         }
     });
-
 
     document.addEventListener('DOMContentLoaded', () => {
         const searchInput = document.getElementById('searchInput');

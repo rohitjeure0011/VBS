@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>History - Virtual Banking System</title>
+    <title>Transaction Logs - Secure Banking System</title>
     <style>
         * {
             margin: 0;
@@ -13,7 +13,7 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             min-height: 100vh;
             padding: 20px;
         }
@@ -22,42 +22,60 @@
             max-width: 1100px;
             margin: 0 auto;
             background: white;
-            border-radius: 16px;
+            border-radius: 20px;
             overflow: hidden;
             box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border: 1px solid rgba(255, 255, 255, 0.1);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             padding: 30px;
             color: white;
             display: flex;
             justify-content: space-between;
             align-items: center;
             gap: 20px;
+            border-bottom: 2px solid rgba(255, 255, 255, 0.1);
         }
 
         .header h1 {
             font-size: 28px;
             font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .header h1:before {
+            content: "📋";
+            font-size: 32px;
+        }
+
+        .header p {
+            font-size: 14px;
+            color: #d1d8ff;
+            margin-top: 5px;
         }
 
         .btn-header {
-            padding: 10px 20px;
-            background: rgba(255, 255, 255, 0.2);
+            padding: 12px 25px;
+            background: rgba(255, 255, 255, 0.15);
             color: white;
-            border: 2px solid white;
-            border-radius: 8px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            border-radius: 10px;
             cursor: pointer;
             text-decoration: none;
             font-weight: 600;
             transition: all 0.3s ease;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
         }
 
         .btn-header:hover {
-            background: white;
-            color: #667eea;
+            background: rgba(255, 255, 255, 0.25);
             transform: translateY(-2px);
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
         }
@@ -66,63 +84,110 @@
             padding: 40px 30px;
         }
 
+        .stats-bar {
+            background: #f0f4ff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 25px;
+            border: 1px solid #e8ecf5;
+            display: flex;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+
+        .stat-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            color: #0c2461;
+            font-weight: 500;
+        }
+
+        .stat-icon {
+            width: 36px;
+            height: 36px;
+            background: linear-gradient(135deg, #1e3799 0%, #4a69bd 100%);
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
         .table-wrapper {
             overflow-x: auto;
-            border-radius: 12px;
+            border-radius: 15px;
             background: #f8f9fa;
             padding: 20px;
+            border: 1px solid #e8ecf5;
         }
 
         .history-table {
             width: 100%;
             border-collapse: collapse;
             background: white;
+            border-radius: 12px;
+            overflow: hidden;
         }
 
         .history-table thead {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #0c2461 0%, #1e3799 100%);
             color: white;
         }
 
         .history-table th {
-            padding: 16px 15px;
+            padding: 18px 15px;
             text-align: left;
             font-weight: 600;
             font-size: 14px;
             letter-spacing: 0.5px;
         }
 
+        .history-table th:first-child {
+            width: 80px;
+        }
+
         .history-table tbody tr {
-            border-bottom: 1px solid #e0e0e0;
+            border-bottom: 1px solid #f0f0f0;
             transition: all 0.2s ease;
         }
 
         .history-table tbody tr:hover {
-            background-color: #f5f7ff;
-            box-shadow: inset 0 0 10px rgba(102, 126, 234, 0.05);
+            background-color: #f0f4ff;
+            box-shadow: 0 2px 8px rgba(12, 36, 97, 0.1);
         }
 
         .history-table td {
-            padding: 14px 15px;
+            padding: 16px 15px;
             font-size: 14px;
             color: #333;
         }
 
         .history-table td:first-child {
             font-weight: 600;
-            color: #667eea;
-            width: 60px;
+            color: #1e3799;
+            font-family: 'Courier New', monospace;
         }
 
         .history-table td:nth-child(2) {
-            color: #555;
+            color: #444;
             word-break: break-word;
+            line-height: 1.4;
         }
 
         .date {
-            color: #999;
-            font-size: 12px;
+            color: #666;
+            font-size: 13px;
             white-space: nowrap;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .date:before {
+            content: "🕐";
+            font-size: 12px;
         }
 
         .history-empty {
@@ -133,10 +198,99 @@
         }
 
         .history-empty::before {
-            content: '📋';
+            content: '🏦';
             display: block;
             font-size: 48px;
             margin-bottom: 15px;
+        }
+
+        .empty-state {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+        }
+
+        .empty-state-icon {
+            font-size: 60px;
+            opacity: 0.5;
+        }
+
+        .empty-state-text {
+            color: #666;
+            font-size: 16px;
+            max-width: 300px;
+            line-height: 1.5;
+        }
+
+        .loading {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 15px;
+            padding: 40px;
+        }
+
+        .loading-icon {
+            font-size: 40px;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.5; }
+        }
+
+        .action-type {
+            display: inline-block;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 600;
+            margin-left: 5px;
+        }
+
+        .action-deposit {
+            background: #e8f5e9;
+            color: #27ae60;
+            border: 1px solid #c8e6c9;
+        }
+
+        .action-withdraw {
+            background: #ffebee;
+            color: #e74c3c;
+            border: 1px solid #ffcdd2;
+        }
+
+        .action-transfer {
+            background: #e3f2fd;
+            color: #3498db;
+            border: 1px solid #bbdefb;
+        }
+
+        .action-system {
+            background: #f5f5f5;
+            color: #666;
+            border: 1px solid #ddd;
+        }
+
+        /* Custom scrollbar */
+        .table-wrapper::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb {
+            background: #1e3799;
+            border-radius: 4px;
+        }
+
+        .table-wrapper::-webkit-scrollbar-thumb:hover {
+            background: #0c2461;
         }
 
         @media (max-width: 768px) {
@@ -144,24 +298,36 @@
                 flex-direction: column;
                 gap: 15px;
                 text-align: center;
+                padding: 25px 20px;
             }
 
             .header h1 {
                 font-size: 22px;
+                justify-content: center;
             }
 
             .history-table th,
             .history-table td {
-                padding: 10px;
-                font-size: 12px;
+                padding: 12px 10px;
+                font-size: 13px;
             }
 
             .content {
-                padding: 20px 15px;
+                padding: 25px 15px;
             }
 
             .table-wrapper {
-                padding: 10px;
+                padding: 15px;
+            }
+
+            .stats-bar {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .btn-header {
+                width: 100%;
+                justify-content: center;
             }
         }
     </style>
@@ -169,25 +335,45 @@
 <body>
 <div class="container">
     <div class="header">
-        <h1>History</h1>
         <div>
-            <button class="btn-header" onclick="goBackToAdmin()">← Back</button>
+            <h1>Bank Transaction Logs</h1>
+            <p>Complete system transaction history</p>
+        </div>
+        <div>
+            <button class="btn-header" onclick="goBackToAdmin()">
+                ⬅️ Back to Admin
+            </button>
         </div>
     </div>
     <div class="content">
+        <div class="stats-bar">
+            <div class="stat-item">
+                <div class="stat-icon">📊</div>
+                <div>Total Records: <span id="totalRecords">0</span></div>
+            </div>
+            <div class="stat-item">
+                <div class="stat-icon">📅</div>
+                <div>Last Updated: <span id="lastUpdated">-</span></div>
+            </div>
+        </div>
         <div id="historyMessage" class="history-empty" style="display:none"></div>
         <div class="table-wrapper">
             <table class="history-table" id="historyTable">
                 <thead>
                 <tr>
-                    <th>ID</th>
-                    <th>Description</th>
-                    <th>Date</th>
+                    <th>#ID</th>
+                    <th>Transaction Description</th>
+                    <th>Date & Time</th>
                 </tr>
                 </thead>
                 <tbody id="historyBody">
                 <tr>
-                    <td colspan="3" class="history-empty">Loading history...</td>
+                    <td colspan="3">
+                        <div class="loading">
+                            <div class="loading-icon">🏦</div>
+                            <div class="empty-state-text">Loading transaction history...</div>
+                        </div>
+                    </td>
                 </tr>
                 </tbody>
             </table>
@@ -213,47 +399,121 @@
         window.location.href = `admin.html?${params.toString()}`;
     }
 
+    function getActionType(description) {
+        const desc = description.toLowerCase();
+        if (desc.includes('deposit')) return 'deposit';
+        if (desc.includes('withdrawal') || desc.includes('withdraw')) return 'withdraw';
+        if (desc.includes('transfer')) return 'transfer';
+        if (desc.includes('added') || desc.includes('deleted') || desc.includes('admin')) return 'system';
+        return 'system';
+    }
+
+    function getActionIcon(type) {
+        switch(type) {
+            case 'deposit': return '💰';
+            case 'withdraw': return '💳';
+            case 'transfer': return '🔄';
+            default: return '⚙️';
+        }
+    }
+
     async function loadHistories() {
         try {
             const res = await fetch(`${API_URL}/histories`);
-            if (!res.ok) throw new Error('Failed to load histories');
+            if (!res.ok) throw new Error('Failed to load transaction logs');
             const histories = await res.json();
+
+            // Update stats
+            document.getElementById('totalRecords').textContent = histories.length;
+            if (histories.length > 0) {
+                const latest = histories.reduce((latest, current) =>
+                    new Date(current.date) > new Date(latest.date) ? current : latest
+                );
+                document.getElementById('lastUpdated').textContent =
+                    new Date(latest.date).toLocaleString('en-IN');
+            }
+
             renderHistories(histories);
         } catch (err) {
             console.error(err);
             const body = document.getElementById('historyBody');
-            body.innerHTML = `<tr><td colspan="3" class="history-empty">Unable to load history. Ensure backend is running.</td></tr>`;
+            body.innerHTML = `
+                <tr>
+                    <td colspan="3">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">❌</div>
+                            <div class="empty-state-text">Unable to load transaction logs. Please ensure the banking server is running.</div>
+                        </div>
+                    </td>
+                </tr>
+            `;
         }
     }
 
     function renderHistories(list) {
         const body = document.getElementById('historyBody');
         if (!list || list.length === 0) {
-            body.innerHTML = `<tr><td colspan="3" class="history-empty">No history records found.</td></tr>`;
+            body.innerHTML = `
+                <tr>
+                    <td colspan="3">
+                        <div class="empty-state">
+                            <div class="empty-state-icon">📭</div>
+                            <div class="empty-state-text">No transaction records found in the system.</div>
+                        </div>
+                    </td>
+                </tr>
+            `;
             return;
         }
 
-        body.innerHTML = list.map(h => `
+        // Sort by date descending
+        const sortedList = [...list].sort((a, b) =>
+            new Date(b.date) - new Date(a.date)
+        );
+
+        body.innerHTML = sortedList.map(h => {
+            const actionType = getActionType(h.description);
+            const actionIcon = getActionIcon(actionType);
+
+            return `
             <tr>
-                <td>#${h.id}</td>
-                <td>${escapeHtml(h.description)}</td>
+                <td>
+                    <div style="display: flex; align-items: center; gap: 5px;">
+                        <span style="font-size: 12px;">${actionIcon}</span>
+                        <span>#${h.id}</span>
+                    </div>
+                </td>
+                <td>
+                    ${escapeHtml(h.description)}
+                    <span class="action-type action-${actionType}">
+                        ${actionType.charAt(0).toUpperCase() + actionType.slice(1)}
+                    </span>
+                </td>
                 <td class="date">${formatDate(h.date)}</td>
             </tr>
-        `).join('');
+            `;
+        }).join('');
     }
 
     function formatDate(d) {
-        if (!d) return '';
+        if (!d) return 'N/A';
         const dt = new Date(d);
         if (isNaN(dt)) return d;
-        return dt.toLocaleString();
+        return dt.toLocaleString('en-IN', {
+            year: 'numeric',
+            month: 'short',
+            day: 'numeric',
+            hour: '2-digit',
+            minute: '2-digit',
+            second: '2-digit'
+        });
     }
 
     function escapeHtml(str) {
         if (!str) return '';
-        return str.replace(/[&<>"']/g, function(c) {
-            return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"}[c];
-        });
+        const div = document.createElement('div');
+        div.textContent = str;
+        return div.innerHTML;
     }
 
     window.addEventListener('DOMContentLoaded', () => {

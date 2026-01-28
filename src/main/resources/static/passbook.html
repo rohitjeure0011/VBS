@@ -3,14 +3,14 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Passbook - Virtual Banking System</title>
+    <title>Account Statement - Secure Banking System</title>
 
     <style>
         *{margin:0;padding:0;box-sizing:border-box}
 
         body{
             font-family:'Segoe UI',Tahoma,Geneva,Verdana,sans-serif;
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            background:linear-gradient(135deg,#0c2461 0%,#1e3799 100%);
             min-height:100vh;
             padding:20px
         }
@@ -19,36 +19,50 @@
             max-width:1000px;
             margin:auto;
             background:#fff;
-            border-radius:16px;
+            border-radius:20px;
             box-shadow:0 20px 60px rgba(0,0,0,.3);
-            overflow:hidden
+            overflow:hidden;
+            border:1px solid rgba(255,255,255,0.1)
         }
 
         .header{
-            background:linear-gradient(135deg,#667eea 0%,#764ba2 100%);
+            background:linear-gradient(135deg,#0c2461 0%,#1e3799 100%);
             padding:30px;
             color:#fff;
             display:flex;
             justify-content:space-between;
-            align-items:center
+            align-items:center;
+            border-bottom:2px solid rgba(255,255,255,0.1)
         }
 
-        .header-left h1{font-size:28px}
-        .header-left p{font-size:14px;opacity:.9}
+        .header-left h1{
+            font-size:28px;
+            display:flex;
+            align-items:center;
+            gap:10px
+        }
+        .header-left h1:before{content:"🏦";font-size:32px}
+        .header-left p{font-size:14px;opacity:.9;color:#d1d8ff}
 
         .btn-header{
             padding:10px 20px;
-            border:2px solid #fff;
-            background:rgba(255,255,255,.2);
+            border:1px solid rgba(255,255,255,0.2);
+            background:rgba(255,255,255,.15);
             color:#fff;
             border-radius:8px;
             cursor:pointer;
             font-weight:600;
             text-decoration:none;
-            transition:.3s
+            transition:.3s;
+            display:flex;
+            align-items:center;
+            gap:8px
         }
 
-        .btn-header:hover{background:#fff;color:#667eea}
+        .btn-header:hover{
+            background:rgba(255,255,255,.25);
+            transform:translateY(-2px)
+        }
 
         .content{padding:40px 30px}
 
@@ -56,22 +70,39 @@
             display:flex;
             justify-content:space-between;
             align-items:center;
-            margin-bottom:30px
+            margin-bottom:30px;
+            flex-wrap:wrap;
+            gap:20px
         }
+
+        .passbook-header h2{
+            color:#0c2461;
+            font-size:24px;
+            display:flex;
+            align-items:center;
+            gap:10px
+        }
+        .passbook-header h2:before{content:"📋"}
 
         .balance-card{
-            background:linear-gradient(135deg,#667eea,#764ba2);
+            background:linear-gradient(135deg,#1e3799 0%,#4a69bd 100%);
             color:#fff;
             padding:20px 30px;
-            border-radius:10px
+            border-radius:15px;
+            box-shadow:0 5px 15px rgba(12,36,97,0.2);
+            border:1px solid rgba(255,255,255,0.1);
+            min-width:250px
         }
 
-        .balance-card .amount{font-size:28px;font-weight:700}
+        .balance-card p{font-size:14px;color:#d1d8ff;margin-bottom:5px}
+        .balance-card .amount{font-size:28px;font-weight:700;display:flex;align-items:center;gap:10px}
+        .balance-card .amount:before{content:"💰"}
 
         .transactions-section{
             background:#f8f9fa;
             padding:30px;
-            border-radius:12px
+            border-radius:15px;
+            border:1px solid #e8ecf5
         }
 
         .transactions-list{display:flex;flex-direction:column;gap:10px}
@@ -83,13 +114,19 @@
             display:flex;
             justify-content:space-between;
             align-items:center;
-            border-left:5px solid #667eea;
-            box-shadow:0 2px 8px rgba(0,0,0,.05)
+            border-left:5px solid #1e3799;
+            box-shadow:0 2px 8px rgba(0,0,0,.05);
+            transition:all 0.3s
         }
 
-        .transaction-item.deposit{border-left-color:#43e97b}
-        .transaction-item.withdrawal{border-left-color:#f5576c}
-        .transaction-item.transfer{border-left-color:#4facfe}
+        .transaction-item:hover{
+            transform:translateY(-2px);
+            box-shadow:0 5px 15px rgba(12,36,97,0.1)
+        }
+
+        .transaction-item.deposit{border-left-color:#27ae60}
+        .transaction-item.withdrawal{border-left-color:#e74c3c}
+        .transaction-item.transfer{border-left-color:#3498db}
 
         .transaction-info{display:flex;gap:15px;align-items:center}
 
@@ -102,57 +139,89 @@
             font-size:22px
         }
 
-        .deposit .transaction-icon{background:#d4f8e8;color:#43e97b}
-        .withdrawal .transaction-icon{background:#fde0e5;color:#f5576c}
-        .transfer .transaction-icon{background:#d4e7ff;color:#4facfe}
+        .deposit .transaction-icon{background:#e8f5e9;color:#27ae60;border:1px solid #c8e6c9}
+        .withdrawal .transaction-icon{background:#ffebee;color:#e74c3c;border:1px solid #ffcdd2}
+        .transfer .transaction-icon{background:#e3f2fd;color:#3498db;border:1px solid #bbdefb}
 
         .transaction-details .type{font-weight:600;color:#333}
         .transaction-details .date{font-size:12px;color:#999}
 
         .transaction-right{text-align:right}
 
-        .transaction-amount{font-size:16px;font-weight:700}
-        .deposit .transaction-amount{color:#43e97b}
-        .withdrawal .transaction-amount{color:#f5576c}
-        .transfer .transaction-amount{color:#4facfe}
+        .transaction-amount{
+            font-size:16px;
+            font-weight:700;
+            display:flex;
+            align-items:center;
+            gap:5px
+        }
+        .deposit .transaction-amount{color:#27ae60}
+        .deposit .transaction-amount:before{content:"⬆️"}
+        .withdrawal .transaction-amount{color:#e74c3c}
+        .withdrawal .transaction-amount:before{content:"⬇️"}
+        .transfer .transaction-amount{color:#3498db}
+        .transfer .transaction-amount:before{content:"🔄"}
 
-        .balance-display{font-size:12px;color:#999}
+        .balance-display{font-size:12px;color:#999;display:flex;align-items:center;gap:5px}
+        .balance-display:before{content:"💰"}
 
         .pagination{
             margin-top:20px;
             display:flex;
             justify-content:center;
-            gap:10px
+            gap:10px;
+            flex-wrap:wrap
         }
 
         .pagination button{
-            padding:8px 12px;
+            padding:8px 15px;
             border:1px solid #ddd;
-            border-radius:6px;
-            cursor:pointer
+            background:white;
+            border-radius:8px;
+            cursor:pointer;
+            font-weight:500;
+            transition:all 0.3s;
+            color:#333
         }
 
         .pagination .active{
-            background:#667eea;
+            background:linear-gradient(135deg,#1e3799 0%,#4a69bd 100%);
             color:#fff;
-            border-color:#667eea
-        }
-        .header > div {
-            display: flex;
-            gap: 10px;
+            border-color:#1e3799
         }
 
-        .btn-header{
-            min-width: 130px;
-            height: 42px;
-            display: inline-flex;
-            align-items: center;
-            justify-content: center;
+        .pagination button:hover:not(.active){
+            border-color:#1e3799;
+            color:#1e3799
         }
 
+        .header > div{display:flex;gap:10px}
+        .btn-header{min-width:130px;height:42px;display:inline-flex;align-items:center;justify-content:center}
 
         .message{display:none;margin-bottom:20px}
         .message.show{display:block}
+
+        .empty-state{
+            text-align:center;
+            color:#999;
+            padding:40px 20px
+        }
+
+        .empty-state-icon{
+            font-size:48px;
+            margin-bottom:15px
+        }
+
+        .empty-state-text{
+            font-size:16px;
+            color:#666
+        }
+
+        /* Custom scrollbar */
+        ::-webkit-scrollbar{width:8px;height:8px}
+        ::-webkit-scrollbar-track{background:#f1f1f1;border-radius:4px}
+        ::-webkit-scrollbar-thumb{background:#1e3799;border-radius:4px}
+        ::-webkit-scrollbar-thumb:hover{background:#0c2461}
     </style>
 </head>
 
@@ -161,26 +230,32 @@
 
     <div class="header">
         <div class="header-left">
-            <h1>VBS</h1>
+            <h1>Secure Bank Statement</h1>
+            <p>Account Transaction History</p>
         </div>
         <div>
-            <a id="dashLink" class="btn-header">← Dashboard</a>
-            <button class="btn-header" onclick="logout()">Logout</button>
+            <a id="dashLink" class="btn-header">🏠 Dashboard</a>
+            <button class="btn-header" onclick="logout()">🚪 Logout</button>
         </div>
     </div>
 
     <div class="content">
 
         <div class="passbook-header">
-            <h2>Your Passbook</h2>
+            <h2>Account Statement</h2>
             <div class="balance-card">
-                <p>Current Balance</p>
+                <p>Current Available Balance</p>
                 <div class="amount">₹<span id="currentBalance">0.00</span></div>
             </div>
         </div>
 
         <div class="transactions-section">
-            <div id="transactionsList" class="transactions-list"></div>
+            <div id="transactionsList" class="transactions-list">
+                <div class="empty-state">
+                    <div class="empty-state-icon">🏦</div>
+                    <div class="empty-state-text">Loading transaction history...</div>
+                </div>
+            </div>
             <div id="paginationControls" class="pagination"></div>
         </div>
 
@@ -204,38 +279,68 @@
     }
 
     async function loadPassbook(){
-        const r = await fetch(`${API_URL}/passbook/${userId}`);
-        transactions = await r.json();
-        if(transactions.length)
+        try {
+            const r = await fetch(`${API_URL}/passbook/${userId}`);
+            if(!r.ok) throw new Error('Failed to load statement');
+
+            transactions = await r.json();
+
+            if(transactions.length === 0) {
+                document.getElementById('transactionsList').innerHTML = `
+                    <div class="empty-state">
+                        <div class="empty-state-icon">📭</div>
+                        <div class="empty-state-text">No transactions found</div>
+                    </div>
+                `;
+                return;
+            }
+
             document.getElementById('currentBalance').textContent =
                 transactions[transactions.length-1].currBalance.toFixed(2);
-        render();
+            render();
+        } catch(error) {
+            console.error('Error loading statement:', error);
+            document.getElementById('transactionsList').innerHTML = `
+                <div class="empty-state">
+                    <div class="empty-state-icon">❌</div>
+                    <div class="empty-state-text">Failed to load account statement</div>
+                </div>
+            `;
+        }
     }
 
     function getType(d){
-        d=d.toLowerCase();
+        d = d.toLowerCase();
         if(d.includes('deposit')) return 'deposit';
         if(d.includes('withdrawal')) return 'withdrawal';
+        if(d.includes('transfer')) return 'transfer';
         return 'transfer';
+    }
+
+    function getIcon(type, description){
+        if(type === 'deposit') return '💰';
+        if(type === 'withdrawal') return '💳';
+        if(description.toLowerCase().includes('received')) return '📥';
+        if(description.toLowerCase().includes('sent')) return '📤';
+        return '🔄';
     }
 
     function render(){
         const list = document.getElementById('transactionsList');
         const pag = document.getElementById('paginationControls');
 
-        const sorted=[...transactions].sort((a,b)=>new Date(b.date)-new Date(a.date));
-        const totalPages=Math.ceil(sorted.length/itemsPerPage);
-        const slice=sorted.slice((currentPage-1)*itemsPerPage,currentPage*itemsPerPage);
+        const sorted = [...transactions].sort((a,b) => new Date(b.date) - new Date(a.date));
+        const totalPages = Math.ceil(sorted.length / itemsPerPage);
+        const slice = sorted.slice((currentPage-1) * itemsPerPage, currentPage * itemsPerPage);
 
-        list.innerHTML=slice.map(t=>{
+        list.innerHTML = slice.map(t => {
             const type = getType(t.description);
+            const icon = getIcon(type, t.description);
 
             let sign = '-';
             if(type === 'deposit') sign = '+';
             else if(type === 'transfer' && t.description.toLowerCase().includes('received'))
                 sign = '+';
-
-            const icon = type==='deposit'?'📥':type==='withdrawal'?'💸':'🔁';
 
             return `
             <div class="transaction-item ${type}">
@@ -247,22 +352,46 @@
                     </div>
                 </div>
                 <div class="transaction-right">
-                    <div class="transaction-amount">${sign}₹${t.amount.toFixed(2)}</div>
+                    <div class="transaction-amount">₹${t.amount.toFixed(2)}</div>
                     <div class="balance-display">Balance ₹${t.currBalance.toFixed(2)}</div>
                 </div>
             </div>`;
         }).join('');
 
-        pag.innerHTML='';
-        for(let i=1;i<=totalPages;i++){
-            pag.innerHTML+=`<button class="${i===currentPage?'active':''}" onclick="go(${i})">${i}</button>`;
+        pag.innerHTML = '';
+        if(totalPages > 1) {
+            if(currentPage > 1) {
+                pag.innerHTML += `<button onclick="go(${currentPage - 1})">⬅️ Previous</button>`;
+            }
+
+            for(let i = 1; i <= totalPages; i++) {
+                if(i === currentPage) {
+                    pag.innerHTML += `<button class="active">${i}</button>`;
+                } else if(i <= 3 || i >= totalPages - 2 || (i >= currentPage - 1 && i <= currentPage + 1)) {
+                    pag.innerHTML += `<button onclick="go(${i})">${i}</button>`;
+                } else if(i === 4 || i === totalPages - 3) {
+                    pag.innerHTML += `<button disabled>...</button>`;
+                }
+            }
+
+            if(currentPage < totalPages) {
+                pag.innerHTML += `<button onclick="go(${currentPage + 1})">Next ➡️</button>`;
+            }
         }
     }
 
-    function go(p){currentPage=p;render()}
-    function logout(){location.href='home.html'}
+    function go(p){
+        currentPage = p;
+        render();
+    }
 
-    window.onload=()=>{
+    function logout(){
+        localStorage.removeItem("userId");
+        localStorage.removeItem("role");
+        location.href = 'home.html';
+    }
+
+    window.onload = () => {
         getUserIdFromURL();
         loadPassbook();
     }

@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Virtual Banking System - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -13,178 +14,471 @@
 
         body {
             font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
+            padding: 20px;
         }
 
         .container {
             width: 90%;
-            max-width: 450px;
+            max-width: 500px;
             background: white;
-            border-radius: 16px;
-            box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(0, 40, 100, 0.3);
             overflow: hidden;
+            border: 1px solid rgba(255, 255, 255, 0.2);
         }
 
         .header {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            padding: 30px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            padding: 35px 30px;
             text-align: center;
             color: white;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path d="M0,0 L100,0 L100,100 Z" fill="rgba(255,255,255,0.1)"/></svg>');
+            background-size: cover;
+        }
+
+        .bank-icon {
+            font-size: 48px;
+            margin-bottom: 15px;
+            color: #4CAF50;
+            filter: drop-shadow(0 4px 6px rgba(0,0,0,0.2));
         }
 
         .header h1 {
-            font-size: 28px;
+            font-size: 32px;
             margin-bottom: 5px;
+            font-weight: 700;
+            letter-spacing: 1px;
         }
 
         .header p {
-            font-size: 14px;
+            font-size: 15px;
             opacity: 0.9;
+            font-weight: 300;
         }
 
         .content {
-            padding: 40px 30px;
+            padding: 40px 35px;
+        }
+
+        h2 {
+            color: #1e3c72;
+            margin-bottom: 30px;
+            text-align: center;
+            font-size: 28px;
+            font-weight: 600;
+            position: relative;
+            padding-bottom: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+
+        h2::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80px;
+            height: 3px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            border-radius: 2px;
         }
 
         .form-group {
-            margin-bottom: 20px;
+            margin-bottom: 25px;
+            position: relative;
         }
 
         .form-group label {
             display: block;
             margin-bottom: 8px;
             color: #333;
-            font-weight: 500;
+            font-weight: 600;
             font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .form-group label i {
+            color: #2a5298;
+            width: 20px;
+        }
+
+        .input-with-icon {
+            position: relative;
         }
 
         .form-group input,
         .form-group select {
             width: 100%;
-            padding: 12px 15px;
-            border: 2px solid #e0e0e0;
-            border-radius: 8px;
-            font-size: 14px;
-            transition: border-color 0.3s;
+            padding: 14px 15px 14px 45px;
+            border: 2px solid #e0e7ff;
+            border-radius: 10px;
+            font-size: 15px;
+            transition: all 0.3s;
+            background: #f8f9ff;
+            color: #333;
         }
 
         .form-group input:focus,
         .form-group select:focus {
             outline: none;
-            border-color: #667eea;
+            border-color: #2a5298;
+            background: white;
+            box-shadow: 0 0 0 3px rgba(42, 82, 152, 0.1);
+        }
+
+        .input-icon {
+            position: absolute;
+            left: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            font-size: 16px;
+            z-index: 2;
         }
 
         .btn {
             width: 100%;
-            padding: 14px;
+            padding: 16px;
             border: none;
-            border-radius: 8px;
+            border-radius: 10px;
             font-size: 16px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.3s ease;
             font-weight: 600;
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
             color: white;
+            box-shadow: 0 5px 15px rgba(30, 60, 114, 0.3);
+            margin-top: 10px;
         }
 
         .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(102, 126, 234, 0.4);
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(30, 60, 114, 0.4);
+        }
+
+        .btn i {
+            font-size: 18px;
+        }
+
+        .links {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 25px;
+            padding-top: 25px;
+            border-top: 1px solid #e0e7ff;
         }
 
         .link {
-            text-align: center;
-            margin-top: 20px;
             color: #666;
             font-size: 14px;
-        }
-
-        .link a {
-            color: #667eea;
-            text-decoration: none;
-            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 8px;
             cursor: pointer;
+            transition: color 0.3s;
+            text-decoration: none;
         }
 
-        .link a:hover {
-            text-decoration: underline;
+        .link:hover {
+            color: #1e3c72;
+        }
+
+        .link i {
+            font-size: 14px;
         }
 
         .message {
-            padding: 12px;
-            border-radius: 8px;
-            margin-bottom: 20px;
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 25px;
             font-size: 14px;
             display: none;
+            align-items: center;
+            gap: 12px;
+            border-left: 4px solid transparent;
         }
 
         .message.success {
-            background: #d4edda;
-            color: #155724;
-            border: 1px solid #c3e6cb;
+            background: #f0f9ff;
+            color: #0c5460;
+            border-left-color: #4CAF50;
         }
 
         .message.error {
-            background: #f8d7da;
+            background: #fff5f5;
             color: #721c24;
-            border: 1px solid #f5c6cb;
+            border-left-color: #dc3545;
         }
 
         .message.show {
-            display: block;
+            display: flex;
         }
 
-        h2 {
-            color: #333;
-            margin-bottom: 25px;
+        .message i {
+            font-size: 18px;
+        }
+
+        .message.success i {
+            color: #4CAF50;
+        }
+
+        .message.error i {
+            color: #dc3545;
+        }
+
+        .security-notice {
+            background: #f8f9ff;
+            padding: 15px;
+            border-radius: 10px;
+            margin-top: 20px;
+            font-size: 13px;
+            color: #666;
+            border-left: 3px solid #4CAF50;
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .security-notice i {
+            color: #4CAF50;
+            font-size: 18px;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-top: 10px;
+            font-size: 14px;
+        }
+
+        .remember {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            color: #666;
+            cursor: pointer;
+        }
+
+        .remember input {
+            width: 16px;
+            height: 16px;
+            cursor: pointer;
+        }
+
+        .forgot-password {
+            color: #2a5298;
+            text-decoration: none;
+            font-weight: 500;
+        }
+
+        .forgot-password:hover {
+            text-decoration: underline;
+        }
+
+        @media (max-width: 480px) {
+            .container {
+                width: 95%;
+                max-width: 100%;
+            }
+
+            .content {
+                padding: 30px 25px;
+            }
+
+            .header {
+                padding: 30px 20px;
+            }
+
+            .links {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            h2 {
+                font-size: 24px;
+            }
+
+            .remember-forgot {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 10px;
+            }
+        }
+
+        /* Eye icon for password visibility */
+        .toggle-password {
+            position: absolute;
+            right: 15px;
+            top: 50%;
+            transform: translateY(-50%);
+            color: #666;
+            cursor: pointer;
+            font-size: 16px;
+            z-index: 2;
+        }
+
+        /* Role selection styling */
+        .role-selector {
+            display: flex;
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .role-option {
+            flex: 1;
+            padding: 12px;
+            border: 2px solid #e0e7ff;
+            border-radius: 8px;
+            background: #f8f9ff;
             text-align: center;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .role-option i {
+            font-size: 20px;
+            color: #2a5298;
+        }
+
+        .role-option span {
+            font-size: 14px;
+            font-weight: 500;
+            color: #333;
+        }
+
+        .role-option:hover {
+            border-color: #2a5298;
+            background: #e0e7ff;
+        }
+
+        .role-option.active {
+            border-color: #2a5298;
+            background: #e0e7ff;
+            box-shadow: 0 4px 8px rgba(42, 82, 152, 0.1);
+        }
+
+        .role-option.active i {
+            color: #1e3c72;
         }
     </style>
 </head>
 <body>
 <div class="container">
     <div class="header">
-        <h1>VBS</h1>
-        <p>Virtual Banking System</p>
+        <div class="bank-icon">
+            <i class="fas fa-university"></i>
+        </div>
+        <h1>Virtual Banking System</h1>
+        <p>Secure • Fast • Reliable</p>
     </div>
 
     <div class="content">
-        <h2>Login</h2>
+        <h2><i class="fas fa-sign-in-alt"></i> Secure Login</h2>
 
-        <div id="loginMessage" class="message"></div>
+        <div id="loginMessage" class="message">
+            <i class="fas fa-info-circle"></i>
+            <span></span>
+        </div>
 
         <form id="loginForm">
             <div class="form-group">
-                <label>Username</label>
-                <input type="text" id="loginUsername" required>
+                <label><i class="fas fa-user-circle"></i> Username</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-user input-icon"></i>
+                    <input type="text" id="loginUsername" required placeholder="Enter your username">
+                </div>
             </div>
 
             <div class="form-group">
-                <label>Password</label>
-                <input type="password" id="loginPassword" required>
+                <label><i class="fas fa-key"></i> Password</label>
+                <div class="input-with-icon">
+                    <i class="fas fa-lock input-icon"></i>
+                    <input type="password" id="loginPassword" required placeholder="Enter your password">
+                    <span class="toggle-password" onclick="togglePasswordVisibility()">
+                        <i class="fas fa-eye"></i>
+                    </span>
+                </div>
+
+                <div class="remember-forgot">
+                    <label class="remember">
+                        <input type="checkbox" id="rememberMe">
+                        <span>Remember me</span>
+                    </label>
+                    <a href="#" class="forgot-password" onclick="showForgotPassword()">
+                        <i class="fas fa-question-circle"></i> Forgot Password?
+                    </a>
+                </div>
             </div>
 
             <div class="form-group">
-                <label>Role</label>
-                <select id="loginRole" required>
+                <label><i class="fas fa-user-tag"></i> Account Type</label>
+                <div class="role-selector">
+                    <div class="role-option" data-role="customer" onclick="selectRole('customer')">
+                        <i class="fas fa-user"></i>
+                        <span>Customer</span>
+                    </div>
+                    <div class="role-option" data-role="admin" onclick="selectRole('admin')">
+                        <i class="fas fa-user-shield"></i>
+                        <span>Admin</span>
+                    </div>
+                </div>
+                <select id="loginRole" required style="display: none;">
                     <option value="">Select Role</option>
                     <option value="customer">Customer</option>
                     <option value="admin">Admin</option>
                 </select>
             </div>
 
-            <button type="submit" class="btn">Login</button>
+            <button type="submit" class="btn">
+                <i class="fas fa-sign-in-alt"></i>
+                Login to Account
+            </button>
         </form>
 
-        <div class="link">
-            Don't have an account? <a onclick="window.location.href='signup.html'">Sign Up</a>
+        <div class="security-notice">
+            <i class="fas fa-shield-alt"></i>
+            <span>Your account is protected by bank-level security. Never share your login credentials.</span>
         </div>
-        <div class="link">
-            <a onclick="window.location.href='home.html'">← Back to Home</a>
+
+        <div class="links">
+            <div class="link" onclick="window.location.href='signup.html'">
+                <i class="fas fa-user-plus"></i>
+                <span>Create New Account</span>
+            </div>
+            <div class="link" onclick="window.location.href='home.html'">
+                <i class="fas fa-home"></i>
+                <span>Back to Home</span>
+            </div>
         </div>
     </div>
 </div>
@@ -192,20 +486,103 @@
 <script>
     const API_URL = 'http://localhost:8081';
 
-    function showMessage(elementId, message, type) {
-        const messageEl = document.getElementById(elementId);
-        messageEl.textContent = message;
-        messageEl.className = `message ${type} show`;
+    // Password visibility toggle
+    function togglePasswordVisibility() {
+        const passwordInput = document.getElementById('loginPassword');
+        const eyeIcon = document.querySelector('.toggle-password i');
+
+        if (passwordInput.type === 'password') {
+            passwordInput.type = 'text';
+            eyeIcon.className = 'fas fa-eye-slash';
+        } else {
+            passwordInput.type = 'password';
+            eyeIcon.className = 'fas fa-eye';
+        }
     }
 
+    // Role selection
+    function selectRole(role) {
+        const options = document.querySelectorAll('.role-option');
+        options.forEach(opt => {
+            if (opt.dataset.role === role) {
+                opt.classList.add('active');
+            } else {
+                opt.classList.remove('active');
+            }
+        });
+        document.getElementById('loginRole').value = role;
+    }
+
+    // Initialize with customer role selected
+    selectRole('customer');
+
+    // Forgot password (placeholder function)
+    function showForgotPassword() {
+        alert('Please contact bank support at support@vbs.com to reset your password.');
+    }
+
+    // Message display function
+    function showMessage(elementId, message, type) {
+        const messageEl = document.getElementById(elementId);
+        messageEl.querySelector('span').innerText = message;
+        messageEl.className = `message ${type} show`;
+
+        // Auto-hide success messages after 5 seconds
+        if (type === 'success') {
+            setTimeout(() => {
+                messageEl.classList.remove('show');
+            }, 5000);
+        }
+    }
+
+    // Load saved credentials if "Remember me" was checked
+    window.addEventListener('DOMContentLoaded', () => {
+        const savedUsername = localStorage.getItem('savedUsername');
+        const savedRole = localStorage.getItem('savedRole');
+        const rememberMe = localStorage.getItem('rememberMe') === 'true';
+
+        if (rememberMe && savedUsername) {
+            document.getElementById('loginUsername').value = savedUsername;
+            if (savedRole) {
+                selectRole(savedRole);
+            }
+            document.getElementById('rememberMe').checked = true;
+        }
+    });
+
+    // Form submission
     document.getElementById('loginForm').addEventListener('submit', async (e) => {
         e.preventDefault();
 
         const loginData = {
-            username: document.getElementById('loginUsername').value,
+            username: document.getElementById('loginUsername').value.trim(),
             password: document.getElementById('loginPassword').value,
             role: document.getElementById('loginRole').value
         };
+
+        // Validate required fields
+        if (!loginData.username || !loginData.password || !loginData.role) {
+            showMessage('loginMessage', 'Please fill in all fields', 'error');
+            return;
+        }
+
+        // Save credentials if "Remember me" is checked
+        const rememberMe = document.getElementById('rememberMe').checked;
+        if (rememberMe) {
+            localStorage.setItem('savedUsername', loginData.username);
+            localStorage.setItem('savedRole', loginData.role);
+            localStorage.setItem('rememberMe', 'true');
+        } else {
+            localStorage.removeItem('savedUsername');
+            localStorage.removeItem('savedRole');
+            localStorage.removeItem('rememberMe');
+        }
+
+        // Show loading state
+        const submitBtn = document.querySelector('#loginForm button[type="submit"]');
+        const originalText = submitBtn.innerHTML;
+        submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Authenticating...';
+        submitBtn.disabled = true;
 
         try {
             const response = await fetch(`${API_URL}/login`, {
@@ -222,28 +599,54 @@
                 showMessage('loginMessage', 'Login successful! Redirecting...', 'success');
 
                 localStorage.clear();
-localStorage.setItem("userId", result);
+                localStorage.setItem("userId", result);
+                localStorage.setItem("role", loginData.role);
 
-const role = loginData.role.trim().toLowerCase();
-localStorage.setItem("role", role);
-
-setTimeout(() => {
-if (role === "admin") {
-    window.location.href = `admin.html?id=${result}`;
-} else {
-    window.location.href = `dashboard.html?id=${result}`;
-}
-}, 800);
+                // Redirect after delay
+                setTimeout(() => {
+                    if (loginData.role === "admin") {
+                        window.location.href = `admin.html?id=${result}`;
+                    } else {
+                        window.location.href = `dashboard.html?id=${result}`;
+                    }
+                }, 1000);
 
             } else {
                 showMessage('loginMessage', result, 'error');
+                submitBtn.innerHTML = originalText;
+                submitBtn.disabled = false;
             }
         } catch (error) {
             showMessage('loginMessage', 'Error connecting to server. Please try again.', 'error');
             console.error('Login error:', error);
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    });
+
+    // Form validation on input
+    const inputs = document.querySelectorAll('#loginForm input, #loginForm select');
+    inputs.forEach(input => {
+        input.addEventListener('blur', function() {
+            if (this.value.trim() === '' && this.hasAttribute('required')) {
+                this.style.borderColor = '#dc3545';
+            } else {
+                this.style.borderColor = '#e0e7ff';
+            }
+        });
+
+        input.addEventListener('input', function() {
+            this.style.borderColor = '#2a5298';
+        });
+    });
+
+    // Enter key to submit
+    document.getElementById('loginForm').addEventListener('keypress', function(e) {
+        if (e.key === 'Enter') {
+            e.preventDefault();
+            this.querySelector('button[type="submit"]').click();
         }
     });
 </script>
-
 </body>
 </html>
